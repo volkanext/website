@@ -100,12 +100,16 @@ export function Contact() {
 
             <div className="mt-10 flex gap-4">
               {socials.map((social) => (
-                <a
+              // TODO: reemplazar href="#" por la URL real de cada red en src/data/contact.ts
+              <a
                   key={social.label}
                   href={social.href}
+                  aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="glass-card flex h-10 w-10 items-center justify-center rounded-lg text-gray-300 transition-all hover:border-brand-orange hover:text-brand-orange"
                 >
-                  <i className={social.icon}></i>
+                  <i className={social.icon} aria-hidden="true"></i>
                 </a>
               ))}
             </div>
@@ -167,7 +171,7 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-orange py-4 font-bold text-white shadow-magma transition-all hover:bg-brand-orange-hover"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-orange-deep py-4 font-bold text-white shadow-magma transition-all hover:bg-brand-orange-deep-hover"
               >
                 <span>Enviar Solicitud</span>{' '}
                 <i className="fa-solid fa-paper-plane text-xs"></i>

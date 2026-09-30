@@ -6,8 +6,8 @@ interface LogoProps {
 }
 
 export function Logo({ size = 'md', withTagline = true }: LogoProps) {
-  const imgHeight = size === 'sm' ? 'h-8' : 'h-11'
-  const textSize = size === 'sm' ? 'text-lg' : 'text-xl'
+  const imgHeight = size === 'sm' ? 'h-8 lg:h-9' : 'h-11'
+  const textSize = size === 'sm' ? 'text-base lg:text-lg' : 'text-xl'
 
   return (
     <a

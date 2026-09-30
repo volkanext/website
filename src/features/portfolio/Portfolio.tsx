@@ -1,7 +1,7 @@
 import { usePortfolioFilter } from './usePortfolioFilter'
 import { useModal } from '@/features/modal/useModal'
 
-const activeStyles = 'bg-brand-orange text-white shadow-magma'
+const activeStyles = 'bg-brand-orange-deep text-white shadow-magma'
 const inactiveStyles = 'glass-card text-gray-300 hover:text-white'
 
 export function Portfolio() {
@@ -16,12 +16,12 @@ export function Portfolio() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 flex flex-col justify-between md:flex-row md:items-end">
           <div>
-            <h2 className="mb-3 text-xs font-bold tracking-widest text-brand-orange uppercase">
+            <span className="mb-3 block text-xs font-bold tracking-widest text-brand-orange uppercase">
               Casos de Éxito
-            </h2>
-            <p className="font-heading text-3xl font-bold tracking-tight sm:text-5xl">
+            </span>
+            <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-5xl">
               Proyectos Destacados
-            </p>
+            </h2>
           </div>
 
           <div className="mt-6 flex flex-wrap gap-2 md:mt-0">
@@ -52,7 +52,7 @@ export function Portfolio() {
                   className="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-card via-transparent to-transparent"></div>
-                <span className="absolute top-4 left-4 rounded-full bg-brand-orange/90 px-3 py-1 text-[10px] font-bold tracking-wider text-white uppercase backdrop-blur-md">
+                <span className="absolute top-4 left-4 rounded-full bg-brand-orange-deep px-3 py-1 text-[10px] font-bold tracking-wider text-white uppercase backdrop-blur-md">
                   {project.tag}
                 </span>
               </div>
@@ -75,7 +75,7 @@ export function Portfolio() {
                 </div>
                 <button
                   onClick={() => openProject(project.id)}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-brand-orange/40 py-2.5 text-xs font-semibold text-brand-orange transition-all hover:bg-brand-orange hover:text-white"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-brand-orange/40 py-2.5 text-xs font-semibold text-brand-orange transition-all hover:bg-brand-orange-deep hover:text-white"
                 >
                   Ver Detalles{' '}
                   <i className="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>

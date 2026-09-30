@@ -14,8 +14,14 @@ import { Footer } from '@/components/layout/Footer/Footer'
 function App() {
   return (
     <ModalProvider>
+      <a
+        href="#contenido"
+        className="sr-only rounded-lg bg-brand-orange-deep px-4 py-2 font-bold text-white focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100]"
+      >
+        Saltar al contenido
+      </a>
       <Navbar />
-      <main>
+      <main id="contenido">
         <Hero />
         <StatsSection />
         <Services />

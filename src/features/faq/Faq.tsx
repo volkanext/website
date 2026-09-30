@@ -8,12 +8,12 @@ export function Faq() {
     <section className="py-24">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
-          <h2 className="mb-3 text-xs font-bold tracking-widest text-brand-orange uppercase">
+          <span className="mb-3 block text-xs font-bold tracking-widest text-brand-orange uppercase">
             Preguntas Frecuentes
-          </h2>
-          <p className="font-heading text-3xl font-bold sm:text-4xl">
+          </span>
+          <h2 className="font-heading text-3xl font-bold sm:text-4xl">
             Resolvemos tus dudas antes de comenzar
-          </p>
+          </h2>
         </div>
 
         <div className="space-y-4">

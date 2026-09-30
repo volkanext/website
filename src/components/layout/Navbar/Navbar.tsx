@@ -16,22 +16,25 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-6 sm:px-10 lg:px-16">
-        <div className="flex w-full max-w-7xl items-center justify-between gap-4 rounded-2xl border border-white/10 bg-brand-dark/85 px-6 py-4 shadow-magma backdrop-blur-md transition-all duration-300 sm:px-8 lg:px-10">
+      <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:px-6 lg:px-16">
+        <div className="flex w-full max-w-7xl items-center justify-between gap-3 rounded-2xl border border-white/10 bg-brand-dark/85 px-4 py-4 shadow-magma backdrop-blur-md transition-all duration-300 sm:px-5 lg:gap-4 lg:px-8">
           <Logo size="sm" withTagline={false} />
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav
+            aria-label="Navegación principal"
+            className="hidden min-w-0 items-center gap-1 md:flex"
+          >
             {navLinks
               .filter((link) => !link.right)
               .map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                  className="flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-sm font-medium whitespace-nowrap text-gray-300 transition-colors hover:bg-white/5 hover:text-white lg:px-4"
                 >
                   {link.label}
                   {link.badge && (
-                    <span className="rounded border border-brand-orange/30 bg-brand-orange/20 px-1.5 py-0.5 text-[10px] font-semibold text-brand-orange">
+                    <span className="rounded border border-brand-orange/40 bg-brand-orange/10 px-1.5 py-0.5 text-[10px] font-semibold text-brand-orange">
                       {link.badge}
                     </span>
                   )}
@@ -46,11 +49,11 @@ export function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="hidden items-center gap-1.5 rounded-xl border-2 border-brand-orange px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-orange hover:text-black md:flex"
+                  className="hidden shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl border-2 border-brand-orange px-2.5 py-1.5 text-xs font-medium text-white transition-colors hover:bg-brand-orange hover:text-black md:inline-flex lg:gap-2 lg:px-4 lg:py-2 lg:text-sm"
                 >
                   {link.label}
                   {link.badge && (
-                    <span className="rounded border border-brand-orange/30 bg-brand-orange/20 px-1.5 py-0.5 text-[10px] font-semibold text-brand-orange">
+                    <span className="rounded border border-brand-orange/40 bg-brand-orange/10 px-1.5 py-0.5 text-[10px] font-semibold text-brand-orange">
                       {link.badge}
                     </span>
                   )}
@@ -60,7 +63,8 @@ export function Navbar() {
             <button
               onClick={toggle}
               aria-label="Menú"
-              className="p-2.5 text-gray-300 hover:text-white focus:outline-none md:hidden"
+              aria-expanded={isOpen}
+              className="p-2.5 text-gray-300 hover:text-white md:hidden"
             >
               <i
                 className={`fa-solid ${isOpen ? 'fa-xmark' : 'fa-bars'} text-lg`}
@@ -82,7 +86,7 @@ export function Navbar() {
               >
                 {link.label}
                 {link.badge && (
-                  <span className="rounded border border-brand-orange/30 bg-brand-orange/20 px-1.5 py-0.5 text-[10px] font-semibold text-brand-orange">
+                  <span className="rounded border border-brand-orange/40 bg-brand-orange/10 px-1.5 py-0.5 text-[10px] font-semibold text-brand-orange">
                     {link.badge}
                   </span>
                 )}
@@ -91,7 +95,7 @@ export function Navbar() {
             <a
               href="#contacto"
               onClick={close}
-              className="mt-2 inline-flex justify-center rounded-xl bg-brand-orange py-3 text-center font-semibold text-white shadow-magma"
+              className="mt-2 inline-flex justify-center rounded-xl bg-brand-orange-deep py-3 text-center font-semibold text-white shadow-magma hover:bg-brand-orange-deep-hover"
             >
               Cotizar Ahora
             </a>

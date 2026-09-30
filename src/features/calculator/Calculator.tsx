@@ -154,7 +154,7 @@ export function Calculator() {
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
-          <span className="rounded-full border border-brand-orange/30 bg-brand-orange/20 px-3 py-1 text-xs font-semibold tracking-wider text-brand-orange uppercase">
+          <span className="rounded-full border border-brand-orange/40 bg-brand-orange/10 px-3 py-1 text-xs font-semibold tracking-wider text-brand-orange uppercase">
             Configurador de proyecto
           </span>
           <h2 className="mt-4 mb-3 font-heading text-3xl font-bold tracking-tight sm:text-5xl">
@@ -171,7 +171,7 @@ export function Calculator() {
           <div className="mb-8">
             <div className="mb-3 flex items-center justify-between text-xs font-semibold tracking-wider uppercase">
               <span className="text-white">Paso {step} de 5</span>
-              <span className="text-gray-500">{steps[step - 1]}</span>
+              <span className="text-gray-400">{steps[step - 1]}</span>
             </div>
             <div className="flex gap-2">
               {steps.map((_, index) => (
@@ -291,7 +291,7 @@ export function Calculator() {
                             type="button"
                             aria-pressed={active}
                             onClick={() => toggleExtra(extra)}
-                            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:outline-none motion-reduce:transition-none ${
+                            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors duration-200 motion-reduce:transition-none ${
                               active
                                 ? 'border-brand-orange bg-brand-orange/20 text-white'
                                 : 'border-brand-border bg-white/5 text-gray-300 hover:border-brand-orange hover:text-white'
@@ -310,7 +310,7 @@ export function Calculator() {
                         type="button"
                         aria-pressed={notSure}
                         onClick={toggleNotSure}
-                        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:outline-none motion-reduce:transition-none ${
+                        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors duration-200 motion-reduce:transition-none ${
                           notSure
                             ? 'border-brand-orange bg-brand-orange/20 text-white'
                             : 'border-brand-border bg-white/5 text-gray-300 hover:border-brand-orange hover:text-white'
@@ -561,7 +561,7 @@ export function Calculator() {
                     type="button"
                     onClick={nextStep}
                     disabled={!isStepValid}
-                    className="flex-1 rounded-xl bg-brand-orange px-6 py-3 text-xs font-bold text-white shadow-magma transition-all hover:bg-brand-orange-hover disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none sm:flex-initial"
+                    className="flex-1 rounded-xl bg-brand-orange-deep px-6 py-3 text-xs font-bold text-white shadow-magma transition-all hover:bg-brand-orange-deep-hover disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none sm:flex-initial"
                   >
                     Siguiente <i className="fa-solid fa-arrow-right ml-2"></i>
                   </button>
@@ -570,7 +570,7 @@ export function Calculator() {
                     type="submit"
                     form="config-form"
                     disabled={!isStepValid || status === 'sending'}
-                    className="flex-1 rounded-xl bg-brand-orange px-6 py-3 text-xs font-bold text-white shadow-magma transition-all hover:bg-brand-orange-hover disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none sm:flex-initial"
+                    className="flex-1 rounded-xl bg-brand-orange-deep px-6 py-3 text-xs font-bold text-white shadow-magma transition-all hover:bg-brand-orange-deep-hover disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none sm:flex-initial"
                   >
                     {status === 'sending' ? (
                       <>
@@ -590,7 +590,7 @@ export function Calculator() {
           )}
         </div>
 
-        <p className="mt-6 text-center text-xs text-gray-500">
+        <p className="mt-6 text-center text-xs text-gray-400">
           Sin compromiso. Respuesta de personas reales.
         </p>
       </div>

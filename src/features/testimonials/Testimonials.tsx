@@ -5,12 +5,12 @@ export function Testimonials() {
     <section className="border-y border-brand-border bg-brand-card/30 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="mb-3 text-xs font-bold tracking-widest text-brand-orange uppercase">
+          <span className="mb-3 block text-xs font-bold tracking-widest text-brand-orange uppercase">
             Testimonios
-          </h2>
-          <p className="font-heading text-3xl font-bold sm:text-4xl">
+          </span>
+          <h2 className="font-heading text-3xl font-bold sm:text-4xl">
             Lo que dicen nuestros clientes
-          </p>
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
