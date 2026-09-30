@@ -6,6 +6,8 @@
   --color-brand-card-hover: #1a1d2e;
   --color-brand-orange: #ff3722;
   --color-brand-orange-hover: #e02b18;
+  --color-brand-orange-deep: #e02b18;
+  --color-brand-orange-deep-hover: #c62614;
   --color-brand-light-text: #9ca3af;
   --color-brand-border: rgba(255, 255, 255, 0.08);
 
@@ -56,6 +58,11 @@
   h3,
   h4 {
     font-family: var(--font-heading);
+  }
+
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 2px;
   }
 
   ::selection {

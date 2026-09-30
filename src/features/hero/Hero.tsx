@@ -34,7 +34,7 @@ export function Hero() {
         <div className="mb-16 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
           <a
             href="#proyectos"
-            className="flex w-full items-center justify-center gap-3 rounded-xl bg-brand-orange px-8 py-4 text-center font-bold text-white shadow-magma-lg transition-all hover:-translate-y-1 hover:bg-brand-orange-hover sm:w-auto"
+            className="flex w-full items-center justify-center gap-3 rounded-xl bg-brand-orange-deep px-8 py-4 text-center font-bold text-white shadow-magma-lg transition-all hover:-translate-y-1 hover:bg-brand-orange-deep-hover sm:w-auto"
           >
             <i className="fa-solid fa-rocket"></i> Ver Proyectos
           </a>

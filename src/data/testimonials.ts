@@ -13,7 +13,7 @@ export const testimonials: Testimonial[] = [
     initials: 'AD',
     name: 'Aaron Daniel',
     role: 'CTO en FinTech Solutions',
-    avatarClass: 'bg-brand-orange/30 border-brand-orange text-brand-orange',
+    avatarClass: 'bg-brand-orange/10 border-brand-orange text-brand-orange',
   },
   {
     quote:

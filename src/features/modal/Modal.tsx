@@ -54,7 +54,7 @@ export function Modal() {
           </div>
           <button
             onClick={handleRequest}
-            className="w-full rounded-xl bg-brand-orange py-3.5 text-sm font-bold text-white shadow-magma"
+            className="w-full rounded-xl bg-brand-orange-deep py-3.5 text-sm font-bold text-white shadow-magma"
           >
             Solicitar Propuesta para este Servicio
           </button>
@@ -87,7 +87,7 @@ export function Modal() {
           </div>
           <button
             onClick={close}
-            className="w-full rounded-xl bg-brand-orange py-3 text-sm font-bold text-white shadow-magma"
+className="w-full rounded-xl bg-brand-orange-deep py-3 text-sm font-bold text-white shadow-magma"
           >
             Cerrar Detalle
           </button>
@@ -104,7 +104,7 @@ export function Modal() {
           <h3 className="mt-1 mb-1 font-heading text-2xl font-bold text-white">
             {content.doc.title}
           </h3>
-          <p className="mb-4 text-xs text-gray-500">{content.doc.updatedAt}</p>
+          <p className="mb-4 text-xs text-gray-400">{content.doc.updatedAt}</p>
           <div className="max-h-[55vh] space-y-5 overflow-y-auto pr-1">
             {content.doc.sections.map((section) => (
               <div key={section.heading}>
@@ -119,7 +119,7 @@ export function Modal() {
           </div>
           <button
             onClick={close}
-            className="mt-6 w-full rounded-xl bg-brand-orange py-3 text-sm font-bold text-white shadow-magma"
+            className="mt-6 w-full rounded-xl bg-brand-orange-deep py-3 text-sm font-bold text-white shadow-magma"
           >
             Aceptar
           </button>
@@ -135,7 +135,7 @@ export function Modal() {
         <p className="mb-6 text-sm text-brand-light-text">{content.text}</p>
         <button
           onClick={close}
-          className="w-full rounded-xl bg-brand-orange py-3 text-sm font-bold text-white shadow-magma"
+          className="w-full rounded-xl bg-brand-orange-deep py-3 text-sm font-bold text-white shadow-magma"
         >
           Aceptar
         </button>
@@ -154,9 +154,10 @@ export function Modal() {
       >
         <button
           onClick={close}
+          aria-label="Cerrar modal"
           className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
         >
-          <i className="fa-solid fa-xmark"></i>
+          <i className="fa-solid fa-xmark" aria-hidden="true"></i>
         </button>
         {renderContent()}
       </div>
