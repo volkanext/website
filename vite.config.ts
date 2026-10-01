@@ -3,6 +3,7 @@ import babel from '@rolldown/plugin-babel'
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
+import { seo } from './plugins/seo.ts'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,5 +16,6 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
+    seo(),
   ],
 })
