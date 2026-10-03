@@ -7,15 +7,17 @@ import { faqs } from './faqs.js'
 import { services, type ServiceKey } from './services.js'
 
 /**
- * TODO: reemplazar por el dominio real al registrarlo.
+ * Dominio público del sitio.
  *
- * Se usa `.example`, un TLD reservado por la IANA que nunca puede registrarse,
- * a propósito: si este valor llega a producción sin cambiar, un `canonical`
- * apuntando a `volkanext.com` (dominio que otro podría tener) desviaría todo
- * el posicionamiento en silencio. Con `.example` el fallo es evidente.
- * El build avisa por consola mientras el valor sea el placeholder.
+ * Entra por acá canonical, og:url, sitemap.xml y los JSON-LD, así que es el
+ * único lugar del proyecto donde hay que tocarlo si el dominio cambia.
+ *
+ * Mientras siga usando `.example` (TLD reservado por la IANA, imposible de
+ * registrar) el build avisa por consola: así un `canonical` equivocado en
+ * producción desviaría todo el posicionamiento en silencio y sería difícil de
+ * detectar.
  */
-export const SITE_URL = 'https://volkanext.example'
+export const SITE_URL = 'https://volkanext.com'
 
 /** Identifica si SITE_URL sigue siendo el placeholder de desarrollo. */
 export const SITE_URL_IS_PLACEHOLDER = SITE_URL.includes('.example')
@@ -27,12 +29,27 @@ export const site = {
   description:
     'Agencia de desarrollo web y software en Arequipa, Perú. Creamos plataformas SaaS, aplicaciones móviles, ERPs y soluciones en la nube con React, Next.js y Python.',
   locale: 'es_PE',
-  lang: 'es',
+  lang: 'es-PE',
   themeColor: '#0b0c14',
   ogImage: '/og-image.png',
   ogImageAlt: 'VOLKANEXT — Agencia de desarrollo web y software en Arequipa, Perú',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
   twitterSite: '@volkanext',
 } as const
+
+/**
+ * Arequipa, Perú. Google usa estas coordenadas para el SEO local: sin ellas la
+ * agencia sigue apareciendo en búsquedas de "agencia de software Arequipa",
+ * pero no compite por el mapa ni por el panel de conocimiento.
+ */
+export const geo = {
+  region: 'PE-ARE',
+  placename: 'Arequipa',
+  coordinates: '-16.4090, -71.5375',
+} as const
+
+export const areaServed = ['Perú', 'Latinoamérica', 'Global'] as const
 
 export interface RouteMeta {
   /** Ruta interna, siempre con barra inicial y sin barra final (salvo "/"). */
@@ -183,20 +200,26 @@ export function organizationSchema() {
     '@id': `${SITE_URL}/#organization`,
     name: SITE_NAME,
     url: SITE_URL,
-    logo: absoluteUrl('/og-image.png'),
+    logo: absoluteUrl('/icon-192.png'),
     image: absoluteUrl('/og-image.png'),
     description: site.description,
     email: contact.email,
     telephone: contact.phone,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Arequipa',
-      addressRegion: 'Arequipa',
+      addressLocality: geo.placename,
+      addressRegion: geo.placename,
       addressCountry: 'PE',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: Number(geo.coordinates.split(',')[0].trim()),
+      longitude: Number(geo.coordinates.split(',')[1].trim()),
     },
     areaServed: [
       { '@type': 'Country', name: 'Perú' },
       { '@type': 'Place', name: 'Latinoamérica' },
+      { '@type': 'Place', name: 'Global' },
     ],
     knowsLanguage: ['es'],
     sameAs: socials.map((social) => social.href),
@@ -398,8 +421,8 @@ export function headHtml(meta: RouteMeta): string {
     `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
     `<meta property="og:image" content="${image}" />`,
-    `<meta property="og:image:width" content="1200" />`,
-    `<meta property="og:image:height" content="630" />`,
+    `<meta property="og:image:width" content="${site.ogImageWidth}" />`,
+    `<meta property="og:image:height" content="${site.ogImageHeight}" />`,
     `<meta property="og:image:alt" content="${escapeHtml(site.ogImageAlt)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:site" content="${site.twitterSite}" />`,
