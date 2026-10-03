@@ -3,11 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="VOLKANEXT | Software & Web Development - Agencia de desarrollo de software de alto rendimiento"
-    />
-    <title>VOLKANEXT | Software & Web Development</title>
+
+    <!--
+      title, description, canonical, Open Graph, Twitter Card y JSON-LD los
+      inyecta el plugin `volkanext-seo` (ver vite.config.ts) desde
+      src/data/seo.ts, para que exista una sola fuente de verdad y quede
+      presente en el HTML servido, sin depender de que el visitante ejecute JS.
+    -->
+
+    <!-- Favicon declarado acá porque Vite lo empaqueta con hash al build;
+         si se inyectara desde JS los crawlers que no ejecutan scripts no lo verían. -->
+    <link rel="icon" href="/src/assets/icon/logoMin.ico" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

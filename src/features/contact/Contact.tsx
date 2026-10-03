@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { contact, socials } from '@/data/contact'
 
 const inputClass =
-  'w-full bg-brand-dark/80 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-orange transition-colors'
+  'w-full bg-brand-dark/80 border border-brand-border rounded-xl px-4 py-3 text-sm text-white transition-colors focus:border-brand-orange focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange'
 
 const labelClass =
   'block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2'
@@ -32,6 +32,7 @@ export function Contact() {
   return (
     <section
       id="contacto"
+      aria-labelledby="contacto-heading"
       className="relative border-t border-brand-border bg-brand-card/20 py-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -40,7 +41,10 @@ export function Contact() {
             <span className="text-xs font-bold tracking-widest text-brand-orange uppercase">
               Hablemos de tu Proyecto
             </span>
-            <h2 className="mt-3 mb-6 font-heading text-3xl font-bold tracking-tight sm:text-5xl">
+            <h2
+              id="contacto-heading"
+              className="mt-3 mb-6 font-heading text-3xl font-bold tracking-tight sm:text-5xl"
+            >
               ¿Listo para escalar tu negocio digital?
             </h2>
             <p className="mb-8 text-base leading-relaxed text-brand-light-text">
@@ -51,7 +55,7 @@ export function Contact() {
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-brand-orange/30 bg-brand-orange/10 text-xl text-brand-orange shadow-glow">
-                  <i className="fa-solid fa-envelope"></i>
+                  <i aria-hidden="true" className="fa-solid fa-envelope"></i>
                 </div>
                 <div>
                   <div className="text-xs tracking-wider text-brand-light-text uppercase">
@@ -68,7 +72,7 @@ export function Contact() {
 
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-brand-orange/30 bg-brand-orange/10 text-xl text-brand-orange shadow-glow">
-                  <i className="fa-solid fa-phone"></i>
+                  <i aria-hidden="true" className="fa-solid fa-phone"></i>
                 </div>
                 <div>
                   <div className="text-xs tracking-wider text-brand-light-text uppercase">
@@ -85,7 +89,7 @@ export function Contact() {
 
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-brand-orange/30 bg-brand-orange/10 text-xl text-brand-orange shadow-glow">
-                  <i className="fa-solid fa-location-dot"></i>
+                  <i aria-hidden="true" className="fa-solid fa-location-dot"></i>
                 </div>
                 <div>
                   <div className="text-xs tracking-wider text-brand-light-text uppercase">
@@ -100,8 +104,7 @@ export function Contact() {
 
             <div className="mt-10 flex gap-4">
               {socials.map((social) => (
-              // TODO: reemplazar href="#" por la URL real de cada red en src/data/contact.ts
-              <a
+                <a
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
@@ -118,10 +121,14 @@ export function Contact() {
           <div className="glass-card rounded-3xl border border-brand-border p-8 sm:p-10">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className={labelClass}>Nombre Completo *</label>
+                <label htmlFor="contact-name" className={labelClass}>
+                  Nombre Completo *
+                </label>
                 <input
+                  id="contact-name"
                   type="text"
                   name="name"
+                  autoComplete="name"
                   required
                   value={form.name}
                   onChange={handleChange}
@@ -132,10 +139,14 @@ export function Contact() {
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <label className={labelClass}>Correo Corporativo *</label>
+                  <label htmlFor="contact-email" className={labelClass}>
+                    Correo Corporativo *
+                  </label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
+                    autoComplete="email"
                     required
                     value={form.email}
                     onChange={handleChange}
@@ -144,10 +155,14 @@ export function Contact() {
                   />
                 </div>
                 <div>
-                  <label className={labelClass}>Teléfono / WhatsApp</label>
+                  <label htmlFor="contact-phone" className={labelClass}>
+                    Teléfono / WhatsApp
+                  </label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     name="phone"
+                    autoComplete="tel"
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+51 900 000 000"
@@ -157,8 +172,11 @@ export function Contact() {
               </div>
 
               <div>
-                <label className={labelClass}>Detalles del Proyecto *</label>
+                <label htmlFor="contact-message" className={labelClass}>
+                  Detalles del Proyecto *
+                </label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   required
                   rows={4}
@@ -174,16 +192,26 @@ export function Contact() {
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-orange-deep py-4 font-bold text-white shadow-magma transition-all hover:bg-brand-orange-deep-hover"
               >
                 <span>Enviar Solicitud</span>{' '}
-                <i className="fa-solid fa-paper-plane text-xs"></i>
+                <i
+                  aria-hidden="true"
+                  className="fa-solid fa-paper-plane text-xs"
+                ></i>
               </button>
             </form>
 
-            {sent && (
-              <div className="mt-4 rounded-xl border border-green-500/40 bg-green-500/20 p-4 text-center text-sm font-semibold text-green-400">
-                ¡Mensaje enviado con éxito! Un especialista de VOLKANEXT se
-                pondrá en contacto en breve.
-              </div>
-            )}
+            {/*
+              role="status" + aria-live: este bloque aparece por concatenación
+              después de enviar. Sin una región viva, un usuario de lector de
+              pantalla no se entera de que el envío funcionó.
+            */}
+            <div role="status" aria-live="polite">
+              {sent && (
+                <div className="mt-4 rounded-xl border border-green-500/40 bg-green-500/20 p-4 text-center text-sm font-semibold text-green-400">
+                  ¡Mensaje enviado con éxito! Un especialista de VOLKANEXT se
+                  pondrá en contacto en breve.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

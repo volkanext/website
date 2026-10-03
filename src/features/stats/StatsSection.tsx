@@ -31,7 +31,10 @@ export function StatsSection() {
   const { ref, inView } = useInView<HTMLDivElement>()
 
   return (
-    <section className="relative z-10 border-y border-brand-border bg-brand-card/40 py-16">
+    <section
+      aria-label="VOLKANEXT en números"
+      className="relative z-10 border-y border-brand-border bg-brand-card/40 py-16"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
           ref={ref}
@@ -62,7 +65,7 @@ export function StatsSection() {
                 key={tech.label}
                 className="glass-card flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium"
               >
-                <i className={`${tech.icon} ${tech.iconClass}`}></i>{' '}
+                <i aria-hidden="true" className={`${tech.icon} ${tech.iconClass}`}></i>{' '}
                 {tech.label}
               </span>
             ))}

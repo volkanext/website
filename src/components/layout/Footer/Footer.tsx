@@ -1,5 +1,6 @@
+import { Link, useLocation } from 'react-router-dom'
 import { navLinks } from '@/data/navLinks'
-import { contact } from '@/data/contact'
+import { contact, socials } from '@/data/contact'
 import { useModal } from '@/features/modal/useModal'
 import { Logo } from '@/components/ui/Logo'
 
@@ -15,9 +16,15 @@ const specialties = [
 ]
 
 export function Footer() {
-  const { alert, openLegal } = useModal()
+  const { alert } = useModal()
+  const { pathname } = useLocation()
 
-  const handleSubscribe = () => {
+  const sectionHref = (href: string) =>
+    pathname === '/' || !href.startsWith('#') ? href : `/${href}`
+
+  const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    e.currentTarget.reset()
     alert('Suscripción', '¡Gracias por suscribirte al boletín de VOLKANEXT!')
   }
 
@@ -31,9 +38,23 @@ export function Footer() {
               Desarrollo web y de software de alto impacto visual y técnico.{' '}
               {contact.location}
             </p>
+            <div className="mt-6 flex gap-3">
+              {socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-brand-border text-brand-light-text transition-all hover:border-brand-orange hover:text-brand-orange"
+                >
+                  <i className={social.icon} aria-hidden="true"></i>
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div>
+          <nav aria-label="Navegación del pie de página">
             <h2 className="mb-4 font-heading text-xs font-bold tracking-wider text-white uppercase">
               Navegación
             </h2>
@@ -41,7 +62,7 @@ export function Footer() {
               {footerNav.map((link) => (
                 <li key={link.href}>
                   <a
-                    href={link.href}
+                    href={sectionHref(link.href)}
                     className="transition-colors hover:text-brand-orange"
                   >
                     {link.label}
@@ -50,14 +71,14 @@ export function Footer() {
               ))}
               <li>
                 <a
-                  href="#contacto"
+                  href={sectionHref('#contacto')}
                   className="transition-colors hover:text-brand-orange"
                 >
                   Contacto
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
 
           <div>
             <h2 className="mb-4 font-heading text-xs font-bold tracking-wider text-white uppercase">
@@ -77,39 +98,52 @@ export function Footer() {
             <p className="mb-3 text-xs text-brand-light-text">
               Recibe artículos sobre desarrollo e innovación tech.
             </p>
-            <div className="flex gap-2">
+            {/*
+              Un <form> de verdad: sin él, pulsar Enter dentro del campo no hace
+              nada y el control queda medio muerto. onSubmit intercepta el envío
+              para mostrar el aviso sin recargar la página.
+            */}
+            <form className="flex gap-2" onSubmit={handleSubscribe}>
+              <label htmlFor="boletin-email" className="sr-only">
+                Correo para el boletín de noticias
+              </label>
               <input
+                id="boletin-email"
                 type="email"
-                aria-label="Correo para el boletín de noticias"
+                name="email"
+                autoComplete="email"
+                required
                 placeholder="Tu correo..."
-                className="flex-1 rounded-lg border border-brand-border bg-brand-card px-3 py-2 text-xs text-white focus:border-brand-orange focus:outline-none"
+                className="flex-1 rounded-lg border border-brand-border bg-brand-card px-3 py-2 text-xs text-white transition-colors focus:border-brand-orange focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"
               />
               <button
-                onClick={handleSubscribe}
+                type="submit"
                 aria-label="Suscribirse al boletín"
-                className="rounded-lg bg-brand-orange-deep px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-brand-orange-deep-hover"
+                className="rounded-lg bg-brand-orange-deep px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-brand-orange-deep-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"
               >
                 <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
               </button>
-            </div>
+            </form>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-between border-t border-white/5 pt-8 text-xs text-gray-400 sm:flex-row">
           <p>&copy; 2026 VOLKANEXT. Todos los derechos reservados.</p>
           <div className="mt-4 flex gap-6 sm:mt-0">
-            <button
-              onClick={() => openLegal('privacy')}
-              className="cursor-pointer transition-colors hover:text-white"
+            {/*
+              Enlaces reales y no botones que abran un modal: son páginas
+              prerenderizadas, así que /privacidad y /terminos tienen URL propia,
+              son indexables y se pueden compartir y enlazar.
+            */}
+            <Link
+              to="/privacidad"
+              className="transition-colors hover:text-white"
             >
               Privacidad
-            </button>
-            <button
-              onClick={() => openLegal('terms')}
-              className="cursor-pointer transition-colors hover:text-white"
-            >
+            </Link>
+            <Link to="/terminos" className="transition-colors hover:text-white">
               Términos de Servicio
-            </button>
+            </Link>
           </div>
         </div>
       </div>

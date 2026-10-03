@@ -54,7 +54,7 @@ export const legalDocs: Record<LegalDoc['key'], LegalDoc> = {
       {
         heading: '8. Contacto',
         body:
-          'Para consultas sobre estos Términos y Condiciones, puedes escribirnos a hola@volkanext.com o visitar la sección de contacto de este sitio.',
+          'Para consultas sobre estos Términos y Condiciones, puedes escribirnos a volkanext@hotmail.com o visitar la sección de contacto de este sitio.',
       },
     ],
   },
@@ -96,7 +96,7 @@ export const legalDocs: Record<LegalDoc['key'], LegalDoc> = {
       {
         heading: '7. Tus Derechos',
         body:
-          'De acuerdo con la legislación peruana de protección de datos (Ley N.º 29733), tienes derecho a solicitar el acceso, actualización, rectificación, cancelación y oposición al tratamiento de tus datos personales. Para ejercer estos derechos, escríbenos a hola@volkanext.com.',
+          'De acuerdo con la legislación peruana de protección de datos (Ley N.º 29733), tienes derecho a solicitar el acceso, actualización, rectificación, cancelación y oposición al tratamiento de tus datos personales. Para ejercer estos derechos, escríbenos a volkanext@hotmail.com.',
       },
       {
         heading: '8. Cambios a esta Política',

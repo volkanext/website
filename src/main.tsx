@@ -1,19 +1,23 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { hydrateRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
-import faviconUrl from './assets/icon/logoMin.ico'
-
-const favicon = document.createElement('link')
-favicon.rel = 'icon'
-favicon.href = faviconUrl
-document.head.appendChild(favicon)
 
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')
 
-createRoot(rootElement).render(
+/**
+ * hydrateRoot y no createRoot: cada página se sirve con el HTML ya renderizado
+ * por el prerender, así que React necesita hidratar esa existente en lugar de
+ * tirar todo y volver a pintar. Si el HTML y el primer render del cliente
+ * difieren, React lo avisa por consola.
+ */
+hydrateRoot(
+  rootElement,
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 )

@@ -46,6 +46,31 @@
     scroll-behavior: smooth;
   }
 
+  /*
+   * Movimiento reducido (WCAG 2.3.3).
+   *
+   * El sitio tiene tres animaciones propias en @theme (float, fade-in, pulse) más
+   * las transiciones de Tailwind. Cubrirlas con una regla global es lo único
+   * fiable: aplicarlas clase por clase es fácil de olvidar y cualquier animación
+   * nueva volvería a moverse sin comprobar la preferencia.
+   *
+   * `scroll-behavior: auto` es essential: sin esto el salto por ancla sigue
+   * desplazándose suavemente aunque el usuario haya pedido lo contrario.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   body {
     background-color: var(--color-brand-dark);
     color: #ffffff;

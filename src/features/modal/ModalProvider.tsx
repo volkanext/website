@@ -5,6 +5,7 @@ import {
   type ModalPayload,
 } from './modal-context'
 import { legalDocs, type LegalDoc } from '@/data/legal'
+import { prefersReducedMotion } from '@/lib/motion'
 
 export function ModalProvider({ children }: { children: ReactNode }) {
   const [content, setContent] = useState<ModalPayload>(null)
@@ -28,7 +29,9 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const close = useCallback(() => setContent(null), [])
 
   const scrollToContact = useCallback(() => {
-    document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })
+    document
+      .getElementById('contacto')
+      ?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
   }, [])
 
   const value = useMemo<ModalContextValue>(

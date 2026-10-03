@@ -9,7 +9,7 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      '"VOLKANEXT transformó por completo nuestra infraestructura web. La velocidad de carga mejoró un 300% y las conversiones de clientes aumentaron significativamente."',
+      'VOLKANEXT transformó por completo nuestra infraestructura web. La velocidad de carga mejoró un 300% y las conversiones de clientes aumentaron significativamente.',
     initials: 'AD',
     name: 'Aaron Daniel',
     role: 'CTO en FinTech Solutions',
@@ -17,7 +17,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      '"Su capacidad técnica para construir aplicaciones móviles complejas con sincronización en tiempo real es impresionante. Cumplieron los plazos al 100%."',
+      'Su capacidad técnica para construir aplicaciones móviles complejas con sincronización en tiempo real es impresionante. Cumplieron los plazos al 100%.',
     initials: 'VC',
     name: 'Valeria Castro',
     role: 'Product Lead en LogiNext',
@@ -25,7 +25,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      '"Profesionalismo, código limpio e impecable diseño UI/UX. No solo escriben software, entienden la estrategia del negocio."',
+      'Profesionalismo, código limpio e impecable diseño UI/UX. No solo escriben software, entienden la estrategia del negocio.',
     initials: 'MR',
     name: 'Mateo Ramos',
     role: 'Founder en CommerceX',

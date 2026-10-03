@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { prefersReducedMotion } from '@/lib/motion'
 
 interface Particle {
   x: number
@@ -104,6 +105,20 @@ export function useParticleCanvas() {
 
     resizeCanvas()
     particles = Array.from({ length: PARTICLE_COUNT }, createParticle)
+
+    /**
+     * Con movimiento reducido se dibuja un único fotograma estático y el bucle
+     * no arranca: 60 redesir por segundo de movimiento de fondo es exactamente
+     * el tipo de estímulo que este ajuste existe para desactivar (WCAG 2.3.3).
+     */
+    if (prefersReducedMotion()) {
+      for (const particle of particles) drawParticle(particle)
+      window.addEventListener('resize', resizeCanvas)
+      return () => {
+        window.removeEventListener('resize', resizeCanvas)
+      }
+    }
+
     animate()
 
     window.addEventListener('resize', resizeCanvas)

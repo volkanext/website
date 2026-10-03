@@ -17,7 +17,7 @@ export const techStack: TechItem[] = [
   },
   {
     icon: 'fa-brands fa-python',
-    label: 'Python / Fast API',
+    label: 'Python / FastAPI',
     iconClass: 'text-yellow-400',
   },
   {
