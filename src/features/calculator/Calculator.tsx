@@ -6,6 +6,7 @@ import {
   urgenciaOptions,
 } from '@/data/calculator'
 import { NOT_SURE_EXTRA, useConfigurator } from './useConfigurator'
+import { submitForm } from '@/lib/web3forms'
 
 const configEndpoint = import.meta.env.VITE_CONFIG_ENDPOINT
 const web3FormsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
@@ -132,10 +133,8 @@ export function Calculator() {
       mensaje: contacto.mensaje,
       origen: 'configurador_web',
       fecha: new Date().toISOString(),
-      ...(web3FormsAccessKey ? { access_key: web3FormsAccessKey } : {}),
       from_name: contacto.nombre,
       subject: 'Nueva solicitud de propuesta — Configurador de proyecto',
-      botcheck: '',
     }
 
     if (!configEndpoint || !web3FormsAccessKey) {
@@ -153,24 +152,12 @@ export function Calculator() {
     }
 
     setStatus('sending')
-    try {
-      const res = await fetch(configEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(payload),
-      })
-      const data: unknown = await res.json()
-      const ok =
-        typeof data === 'object' &&
-        data !== null &&
-        (data as { success?: boolean }).success === true
-      if (!res.ok || !ok) throw new Error('submit failed')
-      setStatus('sent')
-    } catch {
-      setStatus('error')
+    // El envío vive en submitForm() y lo comparten el formulario de contacto y
+    // el boletín del footer: los tres formularios usan el mismo endpoint y
+    // deben informar el fallo de la misma manera.
+    const result = await submitForm(payload)
+    setStatus(result)
+    if (result === 'error') {
       setErrorMsg(
         'No se pudo enviar tu solicitud en este momento. Revisa tu conexión e inténtalo de nuevo: tus datos siguen guardados.',
       )
