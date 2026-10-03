@@ -2,6 +2,8 @@ export type ServiceKey = 'web' | 'mobile' | 'software' | 'cloud' | 'uiux' | 'ai'
 
 export interface Service {
   key: ServiceKey
+  /** Segmento de URL de la página del servicio: /servicios/<slug> */
+  slug: string
   icon: string
   title: string
   desc: string
@@ -13,6 +15,7 @@ export interface Service {
 export const services: Service[] = [
   {
     key: 'web',
+    slug: 'desarrollo-web',
     icon: 'fa-solid fa-code',
     title: 'Desarrollo Web & Web Apps',
     desc: 'Plataformas SaaS, portales corporativos y aplicaciones web de alto impacto con Next.js y React. Optimizado para SEO y velocidad.',
@@ -23,6 +26,7 @@ export const services: Service[] = [
   },
   {
     key: 'mobile',
+    slug: 'aplicaciones-moviles',
     icon: 'fa-solid fa-mobile-screen-button',
     title: 'Aplicaciones Móviles',
     desc: 'Desarrollo nativo e híbrido para iOS y Android. Aplicaciones fluidas con experiencia de usuario nativa y sincronización en tiempo real.',
@@ -33,6 +37,7 @@ export const services: Service[] = [
   },
   {
     key: 'software',
+    slug: 'software-erp',
     icon: 'fa-solid fa-gears',
     title: 'Software a Medida & ERPs',
     desc: 'Sistemas de gestión, automatización de procesos internos, dashboards analíticos y microservicios diseñados a la medida de tu empresa.',
@@ -43,6 +48,7 @@ export const services: Service[] = [
   },
   {
     key: 'cloud',
+    slug: 'cloud-devops',
     icon: 'fa-solid fa-cloud-arrow-up',
     title: 'Cloud & DevOps Deployment',
     desc: 'Arquitectura en la nube escalable, integración continua (CI/CD), contenedores Docker/Kubernetes y gestión de infraestructura segura.',
@@ -53,6 +59,7 @@ export const services: Service[] = [
   },
   {
     key: 'uiux',
+    slug: 'diseno-ui-ux',
     icon: 'fa-solid fa-palette',
     title: 'Diseño UI/UX Profesional',
     desc: 'Interfaces memorables, prototipos interactivos en Figma y diseño centrado en la conversión y la mejor usabilidad para tus usuarios.',
@@ -63,6 +70,7 @@ export const services: Service[] = [
   },
   {
     key: 'ai',
+    slug: 'ia-y-bots',
     icon: 'fa-solid fa-brain',
     title: 'Integración de IA & Bots',
     desc: 'Potenciamos tus apps con modelos de Inteligencia Artificial (OpenAI, Claude, LLMs), automatización inteligente y procesamiento de datos.',

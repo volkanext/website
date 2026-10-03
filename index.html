@@ -4,7 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- title, description y metadatos SEO: plugins/seo.ts (fuente: plugins/seo.config.ts) -->
+    <!--
+      title, description, canonical, Open Graph, Twitter Card y JSON-LD los
+      inyecta el plugin `volkanext-seo` (ver vite.config.ts) desde
+      src/data/seo.ts, para que exista una sola fuente de verdad y quede
+      presente en el HTML servido, sin depender de que el visitante ejecute JS.
+    -->
+
+    <!--
+      Los iconos se declaran acá y no desde React: los crawlers que no ejecutan
+      scripts (Facebook, LinkedIn, X, WhatsApp) no leerían nada inyectado por JS.
+      Vienen de public/, así que se sirven con la ruta tal cual.
+    -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
