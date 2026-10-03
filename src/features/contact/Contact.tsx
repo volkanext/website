@@ -1,5 +1,10 @@
 import { useState, type FormEvent } from 'react'
 import { contact, socials } from '@/data/contact'
+import {
+  NO_ENDPOINT_MESSAGE,
+  submitForm,
+  type SubmitState,
+} from '@/lib/web3forms'
 
 const inputClass =
   'w-full bg-brand-dark/80 border border-brand-border rounded-xl px-4 py-3 text-sm text-white transition-colors focus:border-brand-orange focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange'
@@ -14,19 +19,37 @@ export function Contact() {
     phone: '',
     message: '',
   })
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<SubmitState>('idle')
+  const sending = status === 'sending'
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    // Cualquier edición después de un error permite reintentar sin recargar.
+    if (status === 'error') setStatus('idle')
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setSent(true)
-    setForm({ name: '', email: '', phone: '', message: '' })
-    window.setTimeout(() => setSent(false), 6000)
+    if (sending) return
+    setStatus('sending')
+
+    const next = await submitForm({
+      nombre: form.name,
+      email: form.email,
+      telefono: form.phone,
+      mensaje: form.message,
+      origen: 'formulario_contacto',
+      fecha: new Date().toISOString(),
+      from_name: form.name,
+      subject: 'Nuevo mensaje desde el formulario de contacto',
+    })
+
+    setStatus(next)
+    // Solo se borra lo que el visitante escribió si hubo un envío confirmado:
+    // ante un fallo, vaciar el formulario le hace perder el mensaje completo.
+    if (next === 'sent') setForm({ name: '', email: '', phone: '', message: '' })
   }
 
   return (
@@ -189,12 +212,14 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-orange-deep py-4 font-bold text-white shadow-magma transition-all hover:bg-brand-orange-deep-hover"
+                disabled={sending}
+                aria-disabled={sending}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-orange-deep py-4 font-bold text-white shadow-magma transition-all hover:bg-brand-orange-deep-hover disabled:cursor-not-allowed disabled:opacity-60"
               >
-                <span>Enviar Solicitud</span>{' '}
+                <span>{sending ? 'Enviando...' : 'Enviar Solicitud'}</span>{' '}
                 <i
                   aria-hidden="true"
-                  className="fa-solid fa-paper-plane text-xs"
+                  className={`fa-solid ${sending ? 'fa-spinner fa-spin' : 'fa-paper-plane'} text-xs`}
                 ></i>
               </button>
             </form>
@@ -203,12 +228,25 @@ export function Contact() {
               role="status" + aria-live: este bloque aparece por concatenación
               después de enviar. Sin una región viva, un usuario de lector de
               pantalla no se entera de que el envío funcionó.
+
+              El error va en role="alert" y no en la región anterior a propósito:
+              un fallo necesita anunciarse de inmediato porque la acción del
+              visitante no se completó. Con los dos en la misma región polite, un
+              lector de pantalla esperaría a que el resto de la página terminara
+              de leerse antes de enterarse de que su mensaje no se envió.
             */}
             <div role="status" aria-live="polite">
-              {sent && (
+              {status === 'sent' && (
                 <div className="mt-4 rounded-xl border border-green-500/40 bg-green-500/20 p-4 text-center text-sm font-semibold text-green-400">
                   ¡Mensaje enviado con éxito! Un especialista de VOLKANEXT se
                   pondrá en contacto en breve.
+                </div>
+              )}
+            </div>
+            <div role="alert">
+              {status === 'error' && (
+                <div className="mt-4 rounded-xl border border-red-500/40 bg-red-500/20 p-4 text-center text-sm font-semibold text-red-400">
+                  {NO_ENDPOINT_MESSAGE}
                 </div>
               )}
             </div>

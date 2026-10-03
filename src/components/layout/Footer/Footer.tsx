@@ -1,8 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react'
 import { navLinks } from '@/data/navLinks'
 import { contact, socials } from '@/data/contact'
-import { useModal } from '@/features/modal/useModal'
 import { Logo } from '@/components/ui/Logo'
+import {
+  NO_ENDPOINT_MESSAGE,
+  submitForm,
+  type SubmitState,
+} from '@/lib/web3forms'
 
 const footerNav: { label: string; href: string }[] = navLinks.filter(
   (link) => link.href !== '#contacto',
@@ -16,16 +21,32 @@ const specialties = [
 ]
 
 export function Footer() {
-  const { alert } = useModal()
   const { pathname } = useLocation()
+  const [subscribe, setSubscribe] = useState<SubmitState>('idle')
 
   const sectionHref = (href: string) =>
     pathname === '/' || !href.startsWith('#') ? href : `/${href}`
 
-  const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    e.currentTarget.reset()
-    alert('Suscripción', '¡Gracias por suscribirte al boletín de VOLKANEXT!')
+    if (subscribe === 'sending') return
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+    const email = String(data.get('email') ?? '')
+
+    setSubscribe('sending')
+    const next = await submitForm({
+      email,
+      origen: 'boletin_footer',
+      fecha: new Date().toISOString(),
+      from_name: email,
+      subject: 'Nueva suscripción al boletín de VOLKANEXT',
+    })
+    setSubscribe(next)
+    // El campo solo se limpia si hubo un alta confirmada; si falló, el visitante
+    // no tiene que volver a escribir el correo para reintentar.
+    if (next === 'sent') form.reset()
   }
 
   return (
@@ -118,12 +139,34 @@ export function Footer() {
               />
               <button
                 type="submit"
+                disabled={subscribe === 'sending'}
                 aria-label="Suscribirse al boletín"
-                className="rounded-lg bg-brand-orange-deep px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-brand-orange-deep-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"
+                className="rounded-lg bg-brand-orange-deep px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-brand-orange-deep-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange disabled:cursor-not-allowed disabled:opacity-60"
               >
-                <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                <i
+                  aria-hidden="true"
+                  className={`fa-solid ${subscribe === 'sending' ? 'fa-spinner fa-spin' : 'fa-arrow-right'}`}
+                ></i>
               </button>
             </form>
+
+            {/*
+              El aviso va en la misma región viva en ambos casos: el éxito y el
+              error son respuestas al mismo gesto, y quien usa lector de
+              pantalla necesita enterarse de cualquiera de los dos. Un
+              window.alert no sirve acá: el diálogo modal del navegador no lo
+              leen bien los lectores de pantalla y bloquea la página.
+            */}
+            <div role="status" aria-live="polite" className="mt-2">
+              {subscribe === 'sent' && (
+                <p className="text-xs text-green-400">
+                  ¡Listo! Te avisamos cuando publiquemos algo nuevo.
+                </p>
+              )}
+              {subscribe === 'error' && (
+                <p className="text-xs text-red-400">{NO_ENDPOINT_MESSAGE}</p>
+              )}
+            </div>
           </div>
         </div>
 
