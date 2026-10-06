@@ -66,24 +66,31 @@ export function Calculator() {
   const stepHeadingRef = useRef<HTMLHeadingElement>(null)
   const isFirstRender = useRef(true)
 
-  /**
-   * Devuelve el foco al contenido nuevo.
-   *
-   * Al pulsar "Siguiente" el botón se desmonta junto al paso anterior, así que el
-   * foco se cae al <body>: el usuario de teclado queda sin ubicación y cualquier
-   * Tab posterior arranca desde el inicio del documento. Lo mismo pasa al
-   * enviar, cuando el formulario se reemplaza por el mensaje de éxito.
-   * El primer render se ignora para no robar el foco al cargar la página.
-   */
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false
       return
     }
     if (status === 'sent') {
-      successRef.current?.focus()
+      successRef.current?.focus({ preventScroll: true })
+      if (!successRef.current) return
+      // preventScroll evita el salto de página, pero hay que asegurar que el
+      // elemento sea visible (caso borde: usuario envió el formulario scrolleado
+      // hacia arriba). Un scrollIntoView suave no molesta y mejora la UX.
+      successRef.current.scrollIntoView({
+        behavior:
+          typeof window !== 'undefined' &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            ? 'auto'
+            : 'smooth',
+        block: 'center',
+      })
     } else {
-      stepHeadingRef.current?.focus()
+      stepHeadingRef.current?.focus({ preventScroll: true })
+    }
+
+    return () => {
+      isFirstRender.current = true
     }
   }, [status, step])
 
@@ -165,7 +172,11 @@ export function Calculator() {
   }
 
   return (
-    <section id="calculadora" aria-labelledby="calculadora-heading" className="relative overflow-hidden py-24">
+    <section
+      id="calculadora"
+      aria-labelledby="calculadora-heading"
+      className="relative overflow-hidden py-24"
+    >
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-orange/10 blur-[160px]"></div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -245,7 +256,10 @@ export function Calculator() {
                 onClick={reset}
                 className="mt-8 rounded-xl border border-brand-border px-5 py-3 text-xs font-semibold text-gray-300 transition-all hover:bg-white/5 hover:text-white motion-reduce:transition-none"
               >
-                <i className="fa-solid fa-rotate-left mr-2" aria-hidden="true"></i>
+                <i
+                  className="fa-solid fa-rotate-left mr-2"
+                  aria-hidden="true"
+                ></i>
                 Realizar otra configuración
               </button>
             </div>
@@ -261,9 +275,7 @@ export function Calculator() {
                     ¿Qué tipo de solución digital deseas construir?
                   </h3>
                   <fieldset className={groupClass}>
-                    <legend className={srOnly}>
-                      Tipo de solución digital
-                    </legend>
+                    <legend className={srOnly}>Tipo de solución digital</legend>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                       {projectTypeOptions.map((option) => (
                         <label
@@ -367,7 +379,7 @@ export function Calculator() {
                             {active ? (
                               <i
                                 aria-hidden="true"
-                                className="fa-solid fa-check text-brand-orange text-xs"
+                                className="fa-solid fa-check text-xs text-brand-orange"
                               ></i>
                             ) : (
                               <i
@@ -392,10 +404,13 @@ export function Calculator() {
                         {notSure ? (
                           <i
                             aria-hidden="true"
-                            className="fa-solid fa-check text-brand-orange text-xs"
+                            className="fa-solid fa-check text-xs text-brand-orange"
                           ></i>
                         ) : (
-                          <i aria-hidden="true" className="fa-solid fa-plus text-xs"></i>
+                          <i
+                            aria-hidden="true"
+                            className="fa-solid fa-plus text-xs"
+                          ></i>
                         )}
                         {NOT_SURE_EXTRA}
                       </button>
@@ -559,7 +574,11 @@ export function Calculator() {
               )}
 
               {step === 5 && (
-                <form id="config-form" onSubmit={handleSubmit} className="space-y-5">
+                <form
+                  id="config-form"
+                  onSubmit={handleSubmit}
+                  className="space-y-5"
+                >
                   <h3
                     ref={stepHeadingRef}
                     tabIndex={-1}
@@ -579,7 +598,9 @@ export function Calculator() {
                         autoComplete="name"
                         required
                         value={contacto.nombre}
-                        onChange={(e) => updateContact('nombre', e.target.value)}
+                        onChange={(e) =>
+                          updateContact('nombre', e.target.value)
+                        }
                         placeholder="Ej: María López"
                         className={inputClass}
                       />
@@ -661,7 +682,7 @@ export function Calculator() {
                       >
                         <i
                           aria-hidden="true"
-                          className="fa-solid fa-circle-check text-brand-orange text-xs"
+                          className="fa-solid fa-circle-check text-xs text-brand-orange"
                         ></i>
                         {chip}
                       </li>
@@ -680,7 +701,7 @@ export function Calculator() {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="rounded-xl border border-brand-border px-5 py-3 text-xs font-semibold text-gray-300 transition-all hover:bg-white/5 hover:text-white motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"
+                      className="rounded-xl border border-brand-border px-5 py-3 text-xs font-semibold text-gray-300 transition-all hover:bg-white/5 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange motion-reduce:transition-none"
                     >
                       <i
                         aria-hidden="true"
@@ -722,7 +743,9 @@ export function Calculator() {
                       type="submit"
                       form="config-form"
                       disabled={!isStepValid || status === 'sending'}
-                      aria-describedby={!isStepValid ? 'submit-hint' : undefined}
+                      aria-describedby={
+                        !isStepValid ? 'submit-hint' : undefined
+                      }
                       className="w-full rounded-xl bg-brand-orange-deep px-6 py-3 text-xs font-bold text-white shadow-magma transition-all hover:bg-brand-orange-deep-hover disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none sm:w-auto"
                     >
                       {status === 'sending' ? (
