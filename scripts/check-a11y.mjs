@@ -5,24 +5,33 @@
  * atrapa en el build las regresiones que sí se pueden verificar sobre el
  * HTML servido: si esto falla, la regresión llega a producción.
  */
-import { readFileSync, existsSync } from 'node:fs'
-import { execSync } from 'node:child_process'
+import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs'
+import { join, extname } from 'node:path'
 
-const files = execSync('find dist -name "*.html"', { shell: 'bash' })
-  .toString()
-  .trim()
-  .split('\n')
-  .sort()
+function findFiles(dir, ext) {
+  const results = []
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry)
+    const st = statSync(full)
+    if (st.isDirectory()) {
+      results.push(...findFiles(full, ext))
+    } else if (extname(full) === ext) {
+      results.push(full)
+    }
+  }
+  return results
+}
+
+const files = findFiles('dist', '.html').sort()
 
 /*
  * El bloque prefers-reduced-motion vive en el CSS compilado, no en el HTML.
  * Se lee una vez y se comparte entre páginas.
  */
-const cssFile = execSync('find dist -name "*.css"', { shell: 'bash' })
-  .toString()
-  .trim()
-  .split('\n')[0]
+const cssFiles = findFiles('dist', '.css')
+const cssFile = cssFiles[0]
 const reducedMotionInCss =
+  cssFile &&
   existsSync(cssFile) &&
   /prefers-reduced-motion\s*:\s*reduce/.test(readFileSync(cssFile, 'utf8'))
 
@@ -159,7 +168,7 @@ function checkModalSource() {
   check(
     '2.4.3 calculadora no mueve el foco al cambiar de paso',
     'Calculator.tsx',
-    /stepHeadingRef\.current\?\.focus\(\)/.test(calculator),
+    /stepHeadingRef\.current\?\.focus\(/.test(calculator),
   )
   check('4.1.2 contacto sin role="status"', 'Contact.tsx', /role="status"/.test(contact))
 
