@@ -1,6 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import { services } from '@/data/services'
-import { projects } from '@/data/projects'
 import { useModal } from './useModal'
 
 const FOCUSABLE = [
@@ -124,55 +123,6 @@ export function Modal() {
             </div>
             <button type="button" onClick={handleRequest} className={ctaClass}>
               Solicitar Propuesta para este Servicio
-            </button>
-          </>
-        ),
-      }
-    }
-
-    if (content.kind === 'project') {
-      const project = projects.find((p) => p.id === content.projectId)
-      if (!project) return { title: 'Proyecto', node: null }
-
-      return {
-        title: project.modalTitle,
-        node: (
-          <>
-            <span className="text-xs font-bold tracking-widest text-brand-orange uppercase">
-              {project.client}
-            </span>
-            <h3 className="mt-1 mb-4 font-heading text-2xl font-bold text-white">
-              {project.modalTitle}
-            </h3>
-            {/*
-              El proyecto es una demostración, así que el "impacto de negocio"
-              del impacto mostrado es una estimación de referencia del alcance
-              técnico, no un resultado medido en un cliente.
-            */}
-            <p
-              role="note"
-              className="mb-4 rounded-xl border border-brand-orange/30 bg-brand-orange/10 px-4 py-3 text-xs leading-relaxed text-brand-light-text"
-            >
-              <strong className="text-brand-orange uppercase">
-                Proyecto de demostración.
-              </strong>{' '}
-              No corresponde a un cliente real. El impacto mostrado es una
-              estimación de referencia del alcance técnico, no un resultado
-              medido.
-            </p>
-            <p className="mb-4 text-sm leading-relaxed text-brand-light-text">
-              {project.modalDesc}
-            </p>
-            <div className="mb-6 rounded-xl border border-brand-border bg-white/5 p-4">
-              <span className="mb-1 block text-xs font-bold text-gray-400 uppercase">
-                Impacto de Negocio (estimado):
-              </span>
-              <span className="text-sm font-semibold text-white">
-                {project.impact}
-              </span>
-            </div>
-            <button type="button" onClick={close} className={ctaClass}>
-              Cerrar Detalle
             </button>
           </>
         ),

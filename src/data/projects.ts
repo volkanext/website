@@ -1,69 +1,55 @@
+import tunica from '@/assets/projects/tunica.webp'
+import dental from '@/assets/projects/dental.webp'
+import ccip from '@/assets/projects/ccip.webp'
+
 export type ProjectCategory = 'web' | 'mobile' | 'enterprise'
 
+export type ProjectStatus = 'En desarrollo' | 'finalizado'
+
 export interface Project {
-  id: number
+  slug: string
   category: ProjectCategory
   image: string
   alt: string
-  tag: string
   title: string
   desc: string
   techs: string[]
   client: string
-  modalTitle: string
-  modalDesc: string
-  impact: string
+  status: ProjectStatus
 }
-
-export type ProjectFilter = 'all' | ProjectCategory
 
 export const projects: Project[] = [
   {
-    id: 1,
+    slug: 'landing-tunica',
     category: 'web',
-    image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-    alt: 'Fintech Dashboard',
-    tag: 'SaaS & FinTech',
-    title: 'Plataforma Analytics ApexFin',
-    desc: 'Dashboard financiero en tiempo real capaz de procesar +1M transacciones diarias con latencia ultra baja.',
-    techs: ['Next.js', 'TypeScript', 'Tailwind'],
-    client: 'Fintech Solutions Corp',
-    modalTitle: 'ApexFin Analytics SaaS',
-    modalDesc:
-      'Plataforma web de analítica financiera que procesa streaming de datos en tiempo real con dashboards gráficos interactivos.',
-    impact: '+300% de velocidad de procesamiento vs versión anterior.',
+    image: tunica,
+    alt: 'Vista previa de la Landing Page TÚNICA',
+    title: 'Landing Page TÚNICA',
+    desc: 'Sitio corporativo optimizado para la exposición de marca y presentación del catálogo exclusivo de vestuarios de graduación en alquiler.',
+    techs: ['React', 'Tailwind CSS', 'TypeScript'],
+    client: 'Túnica Graduaciones',
+    status: 'En desarrollo',
   },
   {
-    id: 2,
-    category: 'mobile',
-    image:
-      'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80',
-    alt: 'Health App',
-    tag: 'Mobile App',
-    title: 'VolkanHealth Tracker',
-    desc: 'Aplicación móvil iOS/Android para seguimiento de rendimiento de atletas con telemetría en tiempo real.',
-    techs: ['React Native', 'FastAPI', 'Bluetooth LE'],
-    client: 'HealthTech Global',
-    modalTitle: 'VolkanHealth Mobile',
-    modalDesc:
-      'Aplicación nativa de rendimiento deportivo con conexión directa a dispositivos wearables por Bluetooth de baja energía.',
-    impact: '+45,000 descargas activas en las tiendas móviles.',
+    slug: 'aplicativo-odontologico',
+    category: 'web',
+    image: dental,
+    alt: 'Vista previa del Aplicativo Web Odontológico',
+    title: 'Aplicativo Web Odontológico',
+    desc: 'Panel de control y dashboard interactivo especializado para la gestión integral de pacientes, citas y analíticas internas de clínicas dentales.',
+    techs: ['React', 'Express', 'PostgreSQL', 'Prisma'],
+    client: 'Consultorio Odontológico BryDentis',
+    status: 'En desarrollo',
   },
   {
-    id: 3,
+    slug: 'landing-ccip',
     category: 'enterprise',
-    image:
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
-    alt: 'Logistics Software',
-    tag: 'Enterprise ERP',
-    title: 'Sistema Logístico LogiNext',
-    desc: 'ERP integral para optimización de rutas de carga, control de inventario y monitoreo satelital.',
-    techs: ['Python', 'Docker', 'PostgreSQL'],
-    client: 'LogiNext Peru',
-    modalTitle: 'LogiNext ERP Logístico',
-    modalDesc:
-      'Software empresarial a medida para el control en tiempo real de flotas de carga pesada y gestión automatizada de inventario.',
-    impact: 'Reducción del 35% en tiempos de despacho operativo.',
+    image: ccip,
+    alt: 'Vista previa de la Landing Page CCIP',
+    title: 'Landing Page CCIP',
+    desc: 'Portal institucional enfocado en posicionamiento corporativo y captación de contratistas o proveedores para el abastecimiento de redes a nivel nacional.',
+    techs: ['React', 'Tailwind CSS', 'TypeScript'],
+    client: 'CCIP Corporación de contratistas y proveedores',
+    status: 'En desarrollo',
   },
 ]

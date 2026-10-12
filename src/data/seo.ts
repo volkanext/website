@@ -112,9 +112,9 @@ const staticRoutes: RouteMeta[] = [
   },
   {
     path: '/proyectos/',
-    title: 'Proyectos de Software y Desarrollo Web | VOLKANEXT',
+    title: 'Proyectos en Desarrollo | VOLKANEXT',
     description:
-      'Casos de demostración de VOLKANEXT: plataformas de analítica financiera, apps móviles de rendimiento deportivo y ERP logístico. Ejemplos de desarrollo de software en Perú.',
+      'Desarrollos web en curso de VOLKANEXT: landing pages corporativas y aplicativos a medida para clientes reales. Proyectos de desarrollo web en Perú.',
     changefreq: 'monthly',
     priority: 0.7,
   },
