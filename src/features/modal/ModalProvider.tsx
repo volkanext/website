@@ -14,10 +14,6 @@ export function ModalProvider({ children }: { children: ReactNode }) {
     setContent({ kind: 'service', serviceKey })
   }, [])
 
-  const openProject = useCallback((projectId: number) => {
-    setContent({ kind: 'project', projectId })
-  }, [])
-
   const alert = useCallback((title: string, text: string) => {
     setContent({ kind: 'alert', title, text })
   }, [])
@@ -38,13 +34,12 @@ export function ModalProvider({ children }: { children: ReactNode }) {
     () => ({
       content,
       openService,
-      openProject,
       alert,
       openLegal,
       close,
       scrollToContact,
     }),
-    [content, openService, openProject, alert, openLegal, close, scrollToContact],
+    [content, openService, alert, openLegal, close, scrollToContact],
   )
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
