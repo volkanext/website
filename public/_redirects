@@ -1,0 +1,15 @@
+# Redirecciones — Cloudflare Pages
+# Documentación: https://developers.cloudflare.com/pages/configuration/redirects/
+# La primera regla que coincide gana. Las rutas se prerenderizan como
+# dist/<ruta>/index.html, así que Pages las sirve igual con o sin barra final;
+# estos 301 solo canonicalizan la URL (las canónicas de src/data/seo.ts llevan
+# barra final) para que Google no indexe dos URL por página.
+# No hace falta fallback SPA: Pages sirve dist/404.html automáticamente.
+
+/index.html    /    301
+/servicios     /servicios/    301
+/proyectos     /proyectos/    301
+/precios       /precios/      301
+/contacto      /contacto/     301
+/privacidad    /privacidad/   301
+/terminos      /terminos/     301

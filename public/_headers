@@ -1,0 +1,18 @@
+# Cabeceras de seguridad — Cloudflare Pages
+# Documentación: https://developers.cloudflare.com/pages/configuration/headers/
+# Este archivo se sirve desde public/ → Vite lo copia a dist/ en cada build.
+# Nunca editar dist/_headers a mano: se sobrescribe en el siguiente build.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), usb=(), xr-spatial-tracking=(), browsing-topics=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none
+
+# Los assets de Vite llevan hash en el nombre → cache indefinido seguro.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
