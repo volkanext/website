@@ -1,9 +1,0 @@
-# Configuración de pnpm (pnpm 10+ no lee el campo "pnpm" de package.json).
-# Documentación: https://pnpm.io/settings
-#
-# Overrides para cerrar las vulnerabilidades reportadas por `pnpm audit`:
-# - brace-expansion: DoS por recursión no controlada / CPU quadratic (GHSA-q2hr-2g5m-vwhr y companions)
-# - source-map-js: DoS del event-loop con secciones de source-map indexadas (GHSA-68fv-2mgg-jv7q)
-overrides:
-  brace-expansion: 5.0.12
-  source-map-js: 1.2.2
