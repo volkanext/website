@@ -222,7 +222,9 @@ export function organizationSchema() {
       { '@type': 'Place', name: 'Global' },
     ],
     knowsLanguage: ['es'],
-    sameAs: socials.map((social) => social.href),
+    sameAs: socials
+      .filter((social) => social.sameAs !== false)
+      .map((social) => social.href),
     contactPoint: [
       {
         '@type': 'ContactPoint',

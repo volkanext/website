@@ -4,7 +4,14 @@ import { navLinks } from '@/data/navLinks'
 import { useMobileMenu } from './useMobileMenu'
 import { Logo } from '@/components/ui/Logo'
 
-const sectionIds = ['inicio', 'servicios', 'proyectos', 'calculadora', 'contacto']
+const sectionIds = [
+  'inicio',
+  'nosotros',
+  'servicios',
+  'proyectos',
+  'calculadora',
+  'contacto',
+]
 
 export function Navbar() {
   const { isOpen, toggle, close } = useMobileMenu()
@@ -58,7 +65,7 @@ export function Navbar() {
     pathname === '/' && activeSection === href.replace('#', '')
 
   const linkClass =
-    'flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-sm font-medium whitespace-nowrap text-gray-300 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange lg:px-4'
+    'flex items-center gap-1.5 rounded-xl px-2 py-2 text-sm font-medium whitespace-nowrap text-gray-300 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange lg:px-4'
 
   return (
     <>
@@ -68,7 +75,7 @@ export function Navbar() {
 
           <nav
             aria-label="Navegación principal"
-            className="hidden min-w-0 items-center gap-1 md:flex"
+            className="hidden min-w-0 items-center gap-0.5 md:flex lg:gap-1"
           >
             {navLinks
               .filter((link) => !link.right)
