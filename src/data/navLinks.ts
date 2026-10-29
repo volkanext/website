@@ -7,6 +7,7 @@ export interface NavLink {
 
 export const navLinks: NavLink[] = [
   { label: 'Inicio', href: '#inicio' },
+  { label: 'Nosotros', href: '#nosotros' },
   { label: 'Servicios', href: '#servicios' },
   { label: 'Proyectos', href: '#proyectos' },
   { label: 'Cotización', href: '#calculadora', badge: 'Gratis' },

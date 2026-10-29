@@ -20,11 +20,11 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'landing-tunica',
+    slug: 'landing-tunika',
     category: 'web',
     image: tunica,
-    alt: 'Vista previa de la Landing Page TÚNICA',
-    title: 'Landing Page TÚNICA',
+    alt: 'Vista previa de la Landing Page TÚNIKA',
+    title: 'Landing Page TÚNIKA',
     desc: 'Sitio corporativo optimizado para la exposición de marca y presentación del catálogo exclusivo de vestuarios de graduación en alquiler.',
     techs: ['React', 'Tailwind CSS', 'TypeScript'],
     client: 'Túnica Graduaciones',
